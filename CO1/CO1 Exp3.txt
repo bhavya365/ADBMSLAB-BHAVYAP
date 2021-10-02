@@ -1,0 +1,130 @@
+
+
+
+SQL> create table customer(id integer primary key,name varchar(20),age char(20),address varchar(20),salary float);
+
+Table created.
+
+SQL> insert into customer values(1,'ramesh',32,'ahmedabad',2000.00);
+
+1 row created.
+
+SQL> insert into customer values(2,'Khilan',25,'Dhelhi',1500.00);
+
+1 row created.
+
+SQL> insert into customer values(3,'kaushik',23,'Kota',2000.00);
+
+1 row created.
+
+SQL> insert into customer values(4,'chaitali',25,'Mumbai',6500.00);
+
+1 row created.
+
+SQL> insert into customer values(5,'Hardik',27,'Bhopal',8500.00);
+
+1 row created.
+
+SQL> insert into customer values(6,'Komal',22,'MP',4500.00);
+
+1 row created.
+
+SQL> insert into customer values(7,'Muffy',24,'Indore',10000.00);
+
+1 row created.
+
+
+SQL> select * from customer;
+
+        ID NAME                 AGE                  ADDRESS                  SALARY
+---------- -------------------- -------------------- -------------------- ----------
+         1 Ramesh               32                   ahmedabad                  2000
+         2 Khilan               25                   Dhelhi                     1500
+         3 kaushik              23                   Kota                       2000
+         4 chaitali             25                   Mumbai                     6500
+         5 Hardik               27                   Bhopal                     8500
+         6 Komal                22                   MP                         4500
+         7 Muffy                24                   Indore                    10000
+
+7 rows selected.
+
+
+SQL> create table orders(oid number primary key,orderdates varchar(20),customer_id number,amount number,foreign key(customer_id)references customer(id));
+
+Table created.
+
+SQL> insert into orders values(102,'2009-10-08 00:00:00',3,3000);
+
+1 row created.
+
+SQL> insert into orders values(100,'2009-10-08 00:00:00',3,1500);
+
+1 row created.
+
+SQL> insert into orders values(101,'2009-11-20 00:00:00',2,1560);
+
+1 row created.
+
+SQL> insert into orders values(103,'2008-05-20 00:00:00',4,2060);
+
+1 row created.
+
+SQL> select * from orders;
+
+       OID ORDERDATES           CUSTOMER_ID     AMOUNT
+---------- --------------- ----------- ------ ---------
+       102 2009-10-08 00:00:00       3          3000
+       100 2009-10-08 00:00:00       3          1500
+       101 2009-11-20 00:00:00       2          1560
+       103 2008-05-20 00:00:00       4          2060
+
+
+
+
+A)   SQL> select id,name,amount,dates from customer inner join orders on customer.id = orders.customer_id;
+
+            ID NAME                     AMOUNT ORDERDATES
+         ---------- -------------------- ---------- ---------------
+          2 Khilan                     1560    2009-11-20 00:00:00
+          3 kaushik                    3000    2009-10-08 00:00:00
+          3 kaushik                    1500    2009-10-08 00:00:00
+          4 chaitali                   2060    2008-05-20 00:00:00
+
+B)   SQL> select id,name,amount,dates from customer left join orders on customer.id = orders.customer_id;
+
+           ID NAME                     AMOUNT ORDERDATES
+       ---------- -------------------- ---------- ---------------
+          3 kaushik                    3000    2009-10-08 00:00:00
+          3 kaushik                    1500    2009-10-08 00:00:00
+          2 Khilan                     1560    2009-11-20 00:00:00
+          4 chaitali                   2060    2008-05-20 00:00:00
+          6 Komal
+          1 ramesh
+          7 Muffy
+          5 Hardik
+
+        8 rows selected.
+
+C)   SQL> select id,name,amount,dates from customer right join orders on customer.id = orders.customer_id;
+
+           ID NAME                     AMOUNT DATES
+        ---------- -------------------- ---------- ---------------
+          2 Khilan                     1560 2009-11-20 00:00:00
+          3 kaushik                    3000 2009-10-08 00:00:00
+          3 kaushik                    1500 2009-10-08 00:00:00
+          4 chaitali                   2060 2008-05-20 00:00:00
+
+D)   SQL> select id,name,amount,dates from customer full join orders on customer.id = orders.customer_id;
+
+           ID NAME                     AMOUNT ORDERDATES
+        ---------- -------------------- ---------- ---------------
+          1 ramesh
+          2 Khilan                     1560   2009-11-20 00:00:00
+          3 kaushik                    3000   2009-10-08 00:00:00
+          3 kaushik                    1500   2009-10-08 00:00:00
+          4 chaitali                   2060   2008-05-20 00:00:00
+          5 Hardik
+          6 Komal
+          7 Muffy
+
+        8 rows selected.

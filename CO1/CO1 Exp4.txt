@@ -1,0 +1,123 @@
+
+
+SQL> create table employee(name varchar2(10),da number(10),hra number(10),ta number(10),salary number(10));
+
+Table created.
+
+
+SQL> insert into employee values('&name','&da','&hra','&ta','&salary');
+Enter value for name: Anil
+Enter value for da: 1000
+Enter value for hra: 2000
+Enter value for ta: 1000
+Enter value for salary: 15000
+old   1: insert into employee values('&name','&da','&hra','&ta','&salary')
+new   1: insert into employee values('Anil','1000','2000','1000','15000')
+
+1 row created.
+
+SQL> insert into employee values('&name','&da','&hra','&ta','&salary');
+Enter value for name: arun
+Enter value for da: 1000
+Enter value for hra: 3000
+Enter value for ta: 15000
+Enter value for salary: 20000
+old   1: insert into employee values('&name','&da','&hra','&ta','&salary')
+new   1: insert into employee values('arun','1000','3000','15000','20000')
+
+1 row created.
+
+SQL> insert into Emply values('&name','&da','&hra','&ta','&salary');
+Enter value for name: anu
+Enter value for da: 500
+Enter value for hra: 2000
+Enter value for ta: 500
+Enter value for salary: 90000
+old   1: insert into employee values('&name','&da','&hra','&ta','&salary')
+new   1: insert into employee values('anu','500','2000','500','90000')
+
+1 row created.
+
+SQL> insert into employee values('&name','&da','&hra','&ta','&salary');
+Enter value for name: beena
+Enter value for da: 900
+Enter value for hra: 2500
+Enter value for ta: 1000
+Enter value for salary: 11000
+old   1: insert into employee values('&name','&da','&hra','&ta','&salary')
+new   1: insert into employee values('beena','900','2500','1000','11000')
+
+1 row created.
+
+SQL> insert into employee values('&name','&da','&hra','&ta','&salary');
+Enter value for name: remya
+Enter value for da: 1500
+Enter value for hra: 1000
+Enter value for ta: 2000
+Enter value for salary: 100000
+old   1: insert into employee values('&name','&da','&hra','&ta','&salary')
+new   1: insert into employee values('remya','1500','1000','2000','100000')
+
+1 row created.
+
+SQL> select * from employee;
+
+NAME               DA        HRA         TA     SALARY
+---------- ---------- ---------- ---------- ----------
+Anil             1000       2000       1000      15000
+arun             1000       3000      15000      20000
+aun              500        2000        500       9000
+beena            900        2500       1000      11000
+remya            1500       1000       2000      10000
+
+
+A)   SQL> create view emp as select name,salary from employee where salary>10000;
+
+      View created.
+
+     SQL> select * from emp;
+
+       NAME           SALARY
+      ---------- ----------
+       Anil            15000
+       arun            20000
+       beena           11000
+	   
+	   
+B)	 SQL> update employee set salary = 25000;
+
+     5 rows updated.
+
+     SQL> select * from employee;
+
+       NAME               DA        HRA         TA     SALARY
+     ---------- ---------- ---------- ---------- ----------
+       Anil             1000       2000       1000      25000
+       arun             1000       3000      15000      25000
+       anu               500       2000        500      25000
+       beena             900       2500       1000      25000
+       remya            1500       1000       2000      25000
+
+     SQL> select * from emp;
+
+        NAME           SALARY
+      ---------- ----------
+        Anil            25000
+        arun            25000
+        anu             25000
+        beena           25000
+        remya           25000
+
+C)   SQL> update employee set salary = 1000;
+
+     5 rows updated.
+
+     SQL> select * from employee;
+
+       NAME               DA        HRA         TA     SALARY
+    ---------- ---------- ---------- ---------- ----------
+       Anil             1000       2000       1000       1000
+       arun             1000       3000      15000       1000
+       anu               500       2000        500       1000
+       beena             900       2500       1000       1000
+       remya            1500       1000       2000       1000

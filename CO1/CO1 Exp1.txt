@@ -1,0 +1,158 @@
+
+
+create table student(rollno integer primary key,name varchar(20),dob date,dept varchar(5),marks float);
+
+A)  SQL> insert into student values(1,'Amitha','18-jun-1988','CS',480);
+
+    1 row created.
+
+    SQL>  insert into student values(2,'Arya','12-jul-1989','IT',500);
+
+    1 row created.
+	
+    SQL> insert into student values(3,'George','19-jan-1989','CS',489);
+
+    1 row created.
+
+    SQL>  insert into student values(4,'Gourikripa','28-nov-1989','CS',495);
+
+    1 row created.
+	
+    SQL> insert into student values(5,'Henin','12-dec-1988','IT',525);
+
+    1 row created.
+
+    SQL>  insert into student values(6,'Ishana','25-dec-1988','CS',500);
+
+    1 row created.
+	
+    SQL> insert into student values(7,'Pranav','27-nov-1989','CS',510);
+
+    1 row created.
+
+   	
+   SQL> select * from student;
+
+    ROLLNO NAME                 DOB       DEPT       MARKS
+---------- -------------------- --------- ----- ----------
+         1 Amitha               18-JUN-88 CS           480
+         2 Arya                 12-JUL-89 IT           500
+         3 George               19-JAN-89 CS           489
+         4 Gourikripa           28-NOV-89 CS           495
+         5 Henin                12-DEC-88 IT           525
+         6 Ishana               25-DEC-88 CS           600
+         7 Pranav               27-NOV-89 CS           500
+
+
+7 rows selected.
+	
+	
+	
+	
+B)  SQL> alter table student add(address varchar(30));
+
+    Table altered.
+	
+    SQL> alter table student modify(name varchar(10));
+
+    Table altered.
+	
+	
+C)  SQL> select * from student;
+
+    ROLLNO NAME                 DOB       DEPT       MARKS ADDRESS
+---------- -------------------- --------- ----- ---------- ----------
+         1 Amitha               18-JUN-88 CS           480
+         2 Arya                 12-JUL-89 IT           500
+         3 George               19-JAN-89 CS           489
+         4 Gourikripa           28-NOV-89 CS           495
+         5 Henin                12-DEC-88 IT           525
+         6 Ishana               25-DEC-88 CS           500
+         7 Pranav               27-NOV-89 CS           510
+        
+
+   7 rows selected.
+
+ SQL> desc student;
+ 
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ROLLNO                                    NOT NULL NUMBER(38)
+ NAME                                               VARCHAR2(10)
+ DOB                                                DATE
+ DEPT                                               VARCHAR2(5)
+ MARKS                                              FLOAT(126)
+ ADDRESS                                            VARCHAR2(30)
+
+D)  SQL> update student set address='NO:5,Gandhinagar' where rollno=1;
+
+    1 row updated.
+
+    SQL> update student set address='Flat No:5A,Skyline,Aluva' where rollno=2;
+
+    1 row updated.
+
+    SQL> update student set address='Apple Heights,Padivattom' where rollno=3;
+
+    1 row updated.
+
+    SQL> update student set address='Green Valley,Cochin' where rollno=7;
+	
+   1 row updated.
+
+	
+    SQL> select * from student;
+
+    ROLLNO NAME                 DOB       DEPT       MARKS ADDRESS
+   ---------- -------------------- --------- ----- ---------- ------------------------------
+         1 Amitha               18-JUN-88 CS           480 NO:5,Gandhinagar
+         2 Arya                 12-JUL-89 IT           500 Flat no:5A,Skyline,Aluva
+         3 George               19-JAN-89 CS           489 Apple Heights,Padivattom
+         4 Gourikripa           28-NOV-89 CS           495
+         5 Henin                12-DEC-88 IT           525
+         6 Ishana               25-DEC-88 CS           500
+         7 Pranav               27-NOV-89 CS           510 Green Valley,Cochin
+    
+     7 rows selected.
+
+E)   SQL> SELECT name,dob FROM student WHERE months_between(sysdate,dob)/12<22;
+
+       NAME                 DOB
+     -------------------- ---------
+      Arya              12-JUL-89
+      Gourikripa        28-NOV-89
+      Pranav            27-NOV-89
+
+
+F)   SQL> SELECT * FROM student ORDER BY marks;
+
+    ROLLNO NAME                 DOB       DEPT       MARKS ADDRESS
+   ---------- -------------------- --------- ----- ---------- ------------------------------
+         1 Amitha               18-JUN-88 CS           480 NO:5,Gandhinagar
+         3 George               19-JAN-89 CS           489 Apple Heights,Padivattom
+         4 Gourikripa           28-NOV-89 CS           495
+         6 Ishana               25-DEC-88 CS           500
+         2 Arya                 12-JUL-89 IT           500 Flat no:5A,Skyline,Aluva
+         7 Pranav               27-NOV-89 CS           510 Green Valley,Cochin
+         5 Henin                12-DEC-88 IT           525
+
+   7 rows selected.
+
+G)   SQL> SELECT name FROM student WHERE dept= 'CS' and marks>500;
+
+     ROLLNO NAME                 DOB       DEPT       MARKS ADDRESS
+   ---------- -------------------- --------- ----- ---------- ------------------------------
+         7 Pranav               27-NOV-89 CS           510 Green Valley,Cochin    
+	
+H)   SQL> SELECT name FROM student WHERE marks>(select avg(marks)from student);
+
+      NAME
+     --------------------
+      Arya
+      Henin
+      Ishana
+      Pranav
+	 
+I)   drop table student;
+    
+     Table dropped.
