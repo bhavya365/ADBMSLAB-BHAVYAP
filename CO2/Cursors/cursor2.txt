@@ -1,0 +1,59 @@
+
+
+Calculate Electricity Bill Using Cursors
+
+SQL> create table eb_cal(ebno number(5),name varchar(15),units number(4),charges number(8) null);
+
+Table created.
+
+SQL> insert eb_cal values(127,'Anu',150,null);
+
+1 row created.
+
+SQL> insert eb_cal values(218,'Manu',800,null);
+
+1 row created.
+
+SQL> insert eb_cal values(348,'Kiran',300,null);
+
+1 row created.
+
+SQL> insert eb_cal values(432,'Manju',80,null);
+
+1 row created.
+
+SQL> SELECT * FROM EBILL;
+
+      EBNO NAME                      UNITS    CHARGES
+---------- -------------------- ---------- ----------
+         1 Anu                        150      
+         2 Manu                       800       
+         3 Kiran                      300       
+         4 Manju                       80       
+
+SQL> DECLARE
+  2  CURSOR BILL IS SELECT * FROM EBILL;
+  3  BEGIN
+  4  FOR I IN BILL
+  5  LOOP
+  6  IF I.UNITS<=100 THEN
+  7  UPDATE EBILL SET CHARGES=I.UNITS*1 WHERE EBNO=I.EBNO;
+  8  ELSIF I.UNITS>100 AND I.UNITS<=400 THEN
+  9  UPDATE EBILL SET CHARGES=I.UNITS*2 WHERE EBNO=I.EBNO;
+ 10  ELSE
+ 11  UPDATE EBILL SET CHARGES=I.UNITS*3 WHERE EBNO=I.EBNO;
+ 12  END IF;
+ 13  END LOOP;
+ 14  END;
+ 15  /
+
+PL/SQL procedure successfully completed.
+
+SQL> select * from eb_cal;
+
+      EBNO NAME                      UNITS    CHARGES
+---------- -------------------- ---------- ----------
+         1 Anu                        150        300
+         2 Manju                      800        2400
+         3 Kiran                      300         900
+         4 Manju                       80          80
